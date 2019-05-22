@@ -1,17 +1,40 @@
 {
   "name": "songe-converter-web",
-  "version": "0.1.0",
+  "version": "1.1.0",
+  "author": "Raphaël Thériault <raphael_theriault@outlook.com> (https://raphaeltheriault.com)",
+  "description": "Convert Beat Saber Custom Songs to the NEW format, on the web",
+  "license": "MIT",
+  "homepage": "https://raftario.github.io/songe-converter-web",
+  "repository": "https://github.com/raftario/songe-converter-web.git",
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "standard --fix",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +50,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "gh-pages": "^2.0.1",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "standard": "^12.0.1"
   }
 }

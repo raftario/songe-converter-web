@@ -1,0 +1,18 @@
+init:
+  - ps: Install-Product node $env:nodejs_version
+
+image:
+  - Visual Studio 2017
+
+environment:
+  nodejs_version: "10"
+
+install:
+  - npm install
+
+test_script:
+  - node --version
+  - npm --version
+  - npm run test
+
+build: off
