@@ -91,6 +91,7 @@ class App extends React.Component {
             <Card.Text>
               Your song must be compressed in a <code>.zip</code> file.
               You should remove the <code>song.ogg</code> file from the <code>.zip</code> before uploading your song.
+              You can put multiple songs in the same file as long as it doesn't exceed the size limit (2MB).
             </Card.Text>
             <Row>
               <Col>
