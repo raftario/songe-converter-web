@@ -22,12 +22,14 @@ class App extends React.Component {
       latest: 'Loading...'
     }
     this.fileInput = React.createRef()
+    this.fileSubmit = React.createRef()
 
     window.fetch(config.api)
       .then(res => res.json())
       .then(json => {
-        const latest = json['tag_name'].substring(1)
-        this.setState({ latest })
+        const current = json.current
+        const latest = json.latest
+        this.setState({ current, latest })
       })
       .catch(() => this.setState({ error: 'The API doesn\'t respond.' }))
   }
@@ -54,6 +56,11 @@ class App extends React.Component {
     this.fileInput.current.click()
   }
 
+  submitFile = e => {
+    e.preventDefault()
+    this.fileSubmit.current.click()
+  }
+
   handleFIChange = e => {
     const file = e.target.files[0]
 
@@ -69,7 +76,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <Container className='p-3'>
+      <Container className='p-3' id='App'>
         <Collapse in={!!this.state.error}>
           <div>
             <Alert variant='danger'>{this.state.error}</Alert>
@@ -92,7 +99,9 @@ class App extends React.Component {
                 </Button>
               </Col>
               <Col className='text-right'>
-                <Button variant='secondary' size='lg' disabled={!this.state.file} block>Convert</Button>
+                <Button variant='secondary' size='lg' disabled={!this.state.file} onClick={this.submitFile} block>
+                  Convert
+                </Button>
               </Col>
             </Row>
           </Card.Body>
@@ -119,19 +128,16 @@ class App extends React.Component {
                   <small className='text-muted'>Web app by Raphaël Thériault</small>
                 </Col>
                 <Col className='text-right'>
-                  <small className='text-muted'><a href='#' onClick={App.openLinks}>View on GitHub</a></small>
+                  <small className='text-muted'><a href='#App' onClick={App.openLinks}>View on GitHub</a></small>
                 </Col>
               </Row>
             </ListGroup.Item>
           </ListGroup>
         </Card>
-        <input
-          type='file'
-          className='d-none'
-          accept='application/zip'
-          ref={this.fileInput}
-          onChange={this.handleFIChange}
-        />
+        <form className='d-none' action={config.api} method='post' encType='multipart/form-data'>
+          <input type='file' accept='application/zip' ref={this.fileInput} onChange={this.handleFIChange} />
+          <input type='submit' ref={this.fileSubmit} />
+        </form>
       </Container>
     )
   }
