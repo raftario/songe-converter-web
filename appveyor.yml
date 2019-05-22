@@ -7,7 +7,7 @@ environment:
 install:
   - npm install
 test_script:
-  - rename .\src\config.js.example .\src\config.js
+  - move .\src\config.js.example .\src\config.js
   - node --version
   - npm --version
   - npm run test
