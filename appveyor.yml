@@ -1,18 +1,14 @@
 init:
   - ps: Install-Product node $env:nodejs_version
-
 image:
   - Visual Studio 2017
-
 environment:
   nodejs_version: "10"
-
 install:
   - npm install
-
 test_script:
+  - rename .\src\config.js.example .\src\config.js
   - node --version
   - npm --version
   - npm run test
-
 build: off
