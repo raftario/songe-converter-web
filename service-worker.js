@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/songe-converter-web/precache-manifest.5f53ebc102b8da5b8bffc40de42f3888.js"
+  "/songe-converter-web/precache-manifest.c54c91fbb50a789a6f1821fb5f839522.js"
 );
 
 self.addEventListener('message', (event) => {
