@@ -92,8 +92,17 @@ function downloadSongeConverter () {
       return fetch(downloadURL)
     })
     .then(res => {
-      const dest = fs.createWriteStream(songeConverterFile)
-      res.body.pipe(dest)
+      return new Promise((resolve, reject) => {
+        const dest = fs.createWriteStream(songeConverterFile)
+        res.body.pipe(dest)
+
+        dest.on('close', () => {
+          fs.chmod(songeConverterFile, 0o755, err => {
+            if (err) reject(err)
+            else resolve(songeConverterFile)
+          })
+        })
+      })
     })
 }
 
